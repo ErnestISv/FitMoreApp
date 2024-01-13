@@ -20,18 +20,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private RequestQueue requestQueue;
     private TextView vadbe;
-    private String url = "http://fitmore/api/v1/Vadba";
+    private String url = "https://fitmore.azurewebsites.net/api/v1/Vadba";
+    private String url1 = "https://fitmore.azurewebsites.net/api/v1/Del";
+
+    public static final String EXTRA_MESSAGE = "com.example.universityapp.MESSAGE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue = Volley.newRequestQueue(this);
         vadbe = (TextView) findViewById(R.id.vadbe);
     }
 
@@ -45,16 +51,34 @@ public class MainActivity extends AppCompatActivity {
     private Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response){
+            Log.d("API Response", "Received response: " + response.toString());
+
             ArrayList<String> data = new ArrayList<>();
 
             for (int i = 0; i < response.length(); i++){
                 try {
-                    JSONObject object =response.getJSONObject(i);
-                    String vadba = object.getString("vadbe");
+                    JSONObject object = response.getJSONObject(i);
                     String del = object.getString("del");
                     String cas = object.getString("dan");
+                    String kalorije = object.getString("porabaKalorij");
 
-                    data.add("Izvajanje " + vadba + " " + "za " + del + " " + cas);
+
+                    String[] datumInCasArray = cas.split("T");
+                    String datum = datumInCasArray[0];
+                    String[] datumArray = datum.split("-");
+
+                    String leto = datumArray[0];
+                    String mesec = datumArray[1];
+                    String dan = datumArray[2];
+
+                    String[] casArray = datumInCasArray[1].split("[:.]");
+
+                    String ura = casArray[0];
+                    String minuta = casArray[1];
+
+                    String skupniCas = dan + "." + mesec + "." + leto + " " + ura + ":" + minuta;
+
+                    data.add("\n" + "Porabljene kalorije na dan: " + skupniCas + ":\n " + kalorije);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -75,12 +99,19 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
+
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
+            Log.e("API Error", "Error in API request: " + error.getMessage());
             Log.d("REST error", error.getMessage());
         }
     };
-
+    public void addVadbaActivity (View view) {
+        Intent intent = new Intent(this,AddVadbaActivity.class);
+        String message = "Dodaj vadbo v seznam.";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 
 }

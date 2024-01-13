@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#7500BCD4"
+    android:backgroundTint="#00BCD4"
     tools:context=".MainActivity">
 
     <TextView
@@ -13,7 +15,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Seznam vadb."
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prikaziVadbe"
@@ -26,11 +31,29 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#904CAF50"
         android:onClick="prikaziVadbe"
         android:text="Prikazi vadbe"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:iconTint="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
+    <Button
+        android:id="@+id/addVadbaActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#904CAF50"
+        android:onClick="addVadbaActivity"
+        android:text="Vnesi vadbo"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UniversityApp</string>
+    <string name="break_one">\nIzbira vadbe:\n - 1: Dvigovanje uteži \n - 2: Tek \n - 3: Kardio \n - 4: Naprava1 \n - 5: Naprava2</string>
+    <string name="break_two">\nDel:\n - 1: Roke\n - 2: Noge\n - 3: Prsa\n - 4: Triceps\n - 5: Biceps\n - 6: Trebuh\n - 7: Rit\n - 8: /</string>
 </resources>
